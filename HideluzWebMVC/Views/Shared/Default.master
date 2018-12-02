@@ -1,0 +1,39 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Default.master.cs" Inherits="Views_Shared_Default" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="../../Content/CSS/site.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="row">
+                <a class="navbar-brand" href="/Views/Home/Contato.aspx"><span class="fas fa-user"></span>Contato</a>
+                <a class="navbar-brand" href="/Views/Home/Endereco.aspx"><span class="fas fa-map"></span>Endereço</a>
+                <a class="navbar-brand" href="/Views/Home/Planos.aspx"><span class="fas fa-parking"></span>Planos</a>
+                <a class="navbar-brand" href="/Views/Home/Administracao.aspx"><span class="fas fa-key"></span>Adminstração</a>
+            </div>
+        </div>
+    </nav>
+    <footer class="fixed-bottom">
+        <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+            <div class="container-fluid">
+                    <div class="color-white col-md-4 col-lg-4 offset-md-4 offset-lg-4 text-center">
+                        <strong>Hideluz &copy <%= DateTime.Now.Year %></strong>
+                    </div>
+            </div>
+        </nav>
+    </footer>
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder" runat="Server">
+    </asp:ContentPlaceHolder>
+</body>
+</html>

@@ -1,0 +1,28 @@
+﻿/* override bootstrap 4 navbar-brand*/
+.navbar-brand {
+    opacity:0.9;
+}
+.navbar-brand:hover {
+    opacity:1;
+}
+/*-----------------------s*/
+
+.bg-menu-trans-dark {
+    background-color:rgba(0,0,0,.6);
+}
+.border-radius-soft {
+    border-radius:3px;
+}
+.border-radius-medium {
+    border-radius: 6px;
+}
+.border-radius-hard {
+    border-radius: 9px;
+}
+.border-ease {
+    border:5px groove black;
+    border-radius:2px;
+}
+.color-white {
+    color:white;
+}

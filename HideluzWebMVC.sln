@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.136
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "HideluzWebMVC", "HideluzWebMVC\", "{6F4885BA-73FD-47BF-8660-DE9ED4882415}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.1"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_50350"
+		Debug.AspNetCompiler.PhysicalPath = "HideluzWebMVC\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50350\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_50350"
+		Release.AspNetCompiler.PhysicalPath = "HideluzWebMVC\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50350\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "50350"
+		SlnRelativePath = "HideluzWebMVC\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6F4885BA-73FD-47BF-8660-DE9ED4882415}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F4885BA-73FD-47BF-8660-DE9ED4882415}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FA4C0ED4-2DCC-417B-9CE8-8F17F1E524BF}
+	EndGlobalSection
+EndGlobal
