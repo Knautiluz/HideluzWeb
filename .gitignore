@@ -55,6 +55,7 @@ TestResults/
 # OS generated files #
 ######################
 .DS_Store?
+.vs
 ehthumbs.db
 Icon?
 Thumbs.db
