@@ -17,10 +17,12 @@ public partial class Views_Home_Administracao_Sessao : System.Web.UI.Page
     {
         ValidarSessao();
     }
+
     public string GetUsername()
     {
         return User.Username;
     }
+
     protected void ValidarSessao()
     {
         if (Request.Cookies["UID"] != null)

@@ -20,7 +20,7 @@
                                 </div>
                                 <input name="Password" type="password" class="form-control" placeholder="Senha" aria-label="Senha" aria-describedby="icon-pass">
                             </div>
-                            <button type="submit" class="btn-block">Fazer Login</button>
+                            <button type="submit" class="btn btn-hideluz btn-block">Fazer Login</button>
                         </div>
                     </div>
                 </div>

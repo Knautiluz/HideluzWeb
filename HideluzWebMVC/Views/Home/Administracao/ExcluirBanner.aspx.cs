@@ -44,7 +44,7 @@ public partial class Views_Home_Administracao_DeletarBanner : System.Web.UI.Page
                 {
                     var path = Server.MapPath("~/Content/Images/" + BannerUrl);
                     File.Delete(path);
-                    Response.Write("<script> alert('Banner deletado com sucesso!') </script>");
+                    Response.Redirect(Request.RawUrl);
                 }
                 catch (Exception ex)
                 {
@@ -58,6 +58,7 @@ public partial class Views_Home_Administracao_DeletarBanner : System.Web.UI.Page
             }
         }
     }
+
     public string BannerGenerator()
     {
 
@@ -68,6 +69,24 @@ public partial class Views_Home_Administracao_DeletarBanner : System.Web.UI.Page
         }
         else
         {
+
+            stringBuilder.Append("<div class='carousel-inner'>");
+            stringBuilder.Append("<ol class='carousel-indicators'>");
+            //for que gera os indicators
+            for (int i = 0; i < Banners.Count; i++)
+            {
+                if (i == 0)
+                {
+                    stringBuilder.Append("<li data-target='#carouselExampleIndicators' data-slide-to='0' class='active'></li>");
+                }
+                else
+                {
+                    stringBuilder.Append(String.Format("<li data-target='#carouselExampleIndicators' data-slide-to='{0}'></li>", i));
+                }
+            }
+            stringBuilder.Append("</ol>");
+
+            //for que gera as imagens
             for (int i = 0; i < Banners.Count; i++)
             {
                 if (i == 0)
@@ -85,6 +104,7 @@ public partial class Views_Home_Administracao_DeletarBanner : System.Web.UI.Page
                 stringBuilder.Append("</div>");
                 stringBuilder.Append("</div>");
             }
+            stringBuilder.Append("</div>");
             return stringBuilder.ToString();
         }
     }

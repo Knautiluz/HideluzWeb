@@ -1,14 +1,21 @@
 ﻿/* override bootstrap 4 navbar-brand*/
 .navbar-brand {
-    opacity:0.9;
+    opacity:0.6;
 }
 .navbar-brand:hover {
     opacity:1;
 }
+.btn-hideluz {
+    background-color: rgba(5,40,90,1);
+    color:rgba(255,255,255,0.6);
+}
+.btn-hideluz:hover {
+    background-color: rgba(5,30,80,1);
+    color:white;
+}
 /*-----------------------s*/
-
 .bg-menu-trans-dark {
-    background-color:rgba(0,0,0,.6);
+    background-color: rgba(0,0,0,.6);
 }
 .border-radius-soft {
     border-radius:3px;
@@ -25,4 +32,7 @@
 }
 .color-white {
     color:white;
+}
+.bg-hideluz {
+    background-color:rgba(5,40,90,1);
 }

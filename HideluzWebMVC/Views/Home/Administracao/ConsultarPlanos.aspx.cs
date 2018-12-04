@@ -2,18 +2,18 @@
 using HideluzWebMVC.Models;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Views_Home_Administracao_AlterarBanner : System.Web.UI.Page
+public partial class Views_Home_Administracao_ConsultarBanner : System.Web.UI.Page
 {
     private BannerController Controller { get; set; }
-    public List<BannerModel> Banners { get; set; }
-    public const string url = "../../../Content/Images/";
+    private List<BannerModel> Banners { get; set; }
+    public const string url = "../../../Content/Images/Planos/";
+
     private string Cookie;
     private const string RedirectUrl = "/Views/Home/Administracao.aspx";
 
@@ -22,50 +22,7 @@ public partial class Views_Home_Administracao_AlterarBanner : System.Web.UI.Page
         ValidarSessao();
 
         Controller = new BannerController();
-        Banners = Controller.SelectAllBanners();
-
-        if (Page.Request.HttpMethod.Equals("POST"))
-        {
-
-            //instantiate index controoler
-            BannerController Controller = new BannerController();
-
-            var data = Request.Form;
-            string BannerTitle = data["BannerTitle"];
-            string BannerDesc = data["BannerDesc"];
-            string BannerUrl = data["BannerUrl"];
-            if (string.IsNullOrEmpty(BannerTitle) || string.IsNullOrEmpty(BannerDesc) || string.IsNullOrEmpty(BannerUrl))
-            {
-                Response.Write("<script> alert('Todos os campos são obrigatórios!') </script>");
-                return;
-            }
-            HttpPostedFile file = Request.Files["BannerImg"];
-            if (file != null && file.ContentLength > 0)
-            {
-                string fname = file.FileName;
-                if (Controller.UpdateBanner(BannerTitle, BannerDesc, fname, BannerUrl))
-                {
-                    try
-                    {
-                        file.SaveAs(Server.MapPath(Path.Combine("~/Content/Images/", fname)));
-                        Response.Redirect(Request.RawUrl);
-                    }
-                    catch (Exception ex)
-                    {
-                        string result = string.Format("<script> alert('{0}') </script>", ex);
-                        Response.Write(result);
-                    }
-                }
-                else
-                {
-                    Response.Write(string.Format("<script> alert('{0}') </script>", Controller.Error));
-                }
-            }
-            else
-            {
-                Response.Write("<script> alert('Você enviou um arquivo inválido de imagem!') </script>");
-            }
-        }
+        Banners = Controller.SelectAllPlanBanners();
     }
 
     public string BannerGenerator()
@@ -74,7 +31,7 @@ public partial class Views_Home_Administracao_AlterarBanner : System.Web.UI.Page
         StringBuilder stringBuilder = new StringBuilder();
         if (Banners.Count == 0)
         {
-            return "<h3 class='text-center alert-warning'>Não existem Banners cadastrados.</h3>";
+            return "<h3 class='text-center alert-warning'>Não existem planos cadastrados.</h3>";
         }
         else
         {
@@ -90,7 +47,7 @@ public partial class Views_Home_Administracao_AlterarBanner : System.Web.UI.Page
                 }
                 else
                 {
-                    stringBuilder.Append(String.Format("<li data-target='#carouselExampleIndicators' data-slide-to='{0}'></li>", i)); 
+                    stringBuilder.Append(String.Format("<li data-target='#carouselExampleIndicators' data-slide-to='{0}'></li>", i));
                 }
             }
             stringBuilder.Append("</ol>");

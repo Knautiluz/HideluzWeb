@@ -10,6 +10,7 @@ namespace HideluzWebMVC.Controllers
     {
         private AdminstracaoDAO Administrador { get; set; }
         private UserModel Login {get; set;}
+
         public AdministracaoController()
         {
             Administrador = new AdminstracaoDAO();
@@ -38,6 +39,7 @@ namespace HideluzWebMVC.Controllers
                 return Login;
             }
         }
+
         public UserModel VerifyToken(string token)
         {
             Login.Uid = token;
@@ -57,6 +59,7 @@ namespace HideluzWebMVC.Controllers
                 return Login;
             }
         }
+
         public int UpdateToken(string token, string username)
         {
             Login.Uid = token;

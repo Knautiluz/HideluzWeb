@@ -14,18 +14,19 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-hideluz">
         <div class="container-fluid">
             <div class="row">
-                <a class="navbar-brand" href="/Views/Home/Contato.aspx"><span class="fas fa-user"></span>Contato</a>
-                <a class="navbar-brand" href="/Views/Home/Endereco.aspx"><span class="fas fa-map"></span>Endereço</a>
-                <a class="navbar-brand" href="/Views/Home/Planos.aspx"><span class="fas fa-parking"></span>Planos</a>
-                <a class="navbar-brand" href="/Views/Home/Administracao.aspx"><span class="fas fa-key"></span>Adminstração</a>
+                <a class="navbar-brand" href="/Views/Home/Index.aspx"><span class="fas fa-car"></span> Início</a>
+                <a class="navbar-brand" href="/Views/Home/Contato.aspx"><span class="fas fa-user"></span> Contato</a>
+                <a class="navbar-brand" href="/Views/Home/Endereco.aspx"><span class="fas fa-map"></span> Endereço</a>
+                <a class="navbar-brand" href="/Views/Home/Planos.aspx"><span class="fas fa-parking"></span> Planos</a>
+                <a class="navbar-brand" href="/Views/Home/Administracao.aspx"><span class="fas fa-key"></span> Adminstração</a>
             </div>
         </div>
     </nav>
     <footer class="fixed-bottom">
-        <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-hideluz">
             <div class="container-fluid">
                     <div class="color-white col-md-4 col-lg-4 offset-md-4 offset-lg-4 text-center">
                         <strong>Hideluz &copy <%= DateTime.Now.Year %></strong>

@@ -58,6 +58,7 @@ public partial class Views_Home_Administracao_AdicionarPlanos : System.Web.UI.Pa
             }
         }
     }
+
     protected void ValidarSessao()
     {
         if (Request.Cookies["UID"] != null)

@@ -14,9 +14,7 @@
             <div class="col-md-4 col-lg-4 offset-md-4 offset-lg-4">
                 <h3 class="text-center mt-5">Escolha o Banner de Plano que deseja deletar!</h3>
                 <div id="carouselIndex" class="carousel slide mt-4" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <%= BannerGenerator() %>
-                    </div>
+                    <%= BannerGenerator() %>
                     <a class="carousel-control-prev" href="#carouselIndex" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="sr-only">Previous</span>
@@ -37,13 +35,20 @@
                         <div class="col-md-6 col-lg-6 offset-md-3 offset-lg-3 mt-3">
                             <div class="form-group">
                                 <label for="input-alter">Dados do Banner que deseja alterar</label>
-                                <input readonly id="input-alter" placeholder="Clique no Banner que deseja alterar." name="BannerUrl" required type="text" value="" class="form-control" />
-                                <small id="bannerIdHelp" class="form-text text-muted">Esse banner será alterado com as informações a seguir.</small>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><span class="fas fa-link"></span></span>
+                                    </div>
+                                    <input readonly id="input-alter" placeholder="Clique no Banner que deseja excluir." name="BannerUrl" required type="text" value="" class="form-control" />
+                                </div>
+                                <small id="bannerIdHelp" class="form-text text-muted">Esse banner será deletado.</small>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-6 offset-md-3 offset-lg-3">
-                        <button class="btn-block" type="submit">Excluir Banner</button>
+                    <div class="row d-inline">
+                        <div class="col-md-6 col-lg-6 offset-md-3 offset-lg-3 mb-5">
+                            <button class="btn btn-block btn-hideluz" type="submit">Excluir Plano</button>
+                        </div>
                     </div>
                 </form>
             </div>

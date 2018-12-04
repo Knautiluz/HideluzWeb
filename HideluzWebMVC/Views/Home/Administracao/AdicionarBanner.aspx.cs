@@ -57,6 +57,7 @@ public partial class Views_Home_Cadastro : System.Web.UI.Page
             }
         }
     }
+
     protected void ValidarSessao()
     {
         if (Request.Cookies["UID"] != null)

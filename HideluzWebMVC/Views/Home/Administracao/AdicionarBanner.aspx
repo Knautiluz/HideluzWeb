@@ -6,7 +6,7 @@
             <div class="col-md-6 col-lg-6 offset-md-3 offset-lg-3">
                 <form accept-charset="uft-8" method="post" enctype="multipart/form-data" target="_self">
                     <div class="row">
-                        <div class="col-md-6 col-lg-6 offset-md-3 offset-lg-3">
+                        <div class="col-md-6 col-lg-6 offset-md-3 offset-lg-3 mt-5">
                             <div class="form-group">
                                 <label for="bannerTitle">Titulo do Banner</label>
                                 <input required type="text" class="form-control" id="BannerTitle" name="BannerTitle" placeholder="Escreva o Titulo do Banner">
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-6 offset-md-3 offset-lg-3">
-                        <button class="btn-block" type="submit">Cadastrar</button>
+                        <button class="btn btn-hideluz btn-block" type="submit">Cadastrar</button>
                     </div>
                 </form>
             </div>
