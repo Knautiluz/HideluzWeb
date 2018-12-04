@@ -62,13 +62,55 @@ public class BannerDAO : Connection
         }
         return affectedRows;
     }
+    public int UpdateBanner(BannerModel banner)
+    {
+        int affectedRows;
+        try
+        {
+            OpenDatabase();
+            string sql = string.Format("UPDATE `tbl_banners_index` SET `titulo` = '{0}', `desc` = '{1}', `url` = '{2}' where `url` = '{3}' ", banner.Title, banner.Desc, banner.Url, banner.Id);
+            affectedRows = ExecuteNonQuery(sql);
+        }
+        catch (Exception e)
+        {
+            affectedRows = 0;
+            throw e;
+        }
+        finally
+        {
+            CloseDatabase();
+        }
+        return affectedRows;
+    }
+
+    public int UpdatePlanBanner(BannerModel banner)
+    {
+        int affectedRows;
+        try
+        {
+            OpenDatabase();
+            string sql = string.Format("UPDATE `tbl_banners_plans` SET `titulo` = '{0}', `desc` = '{1}', `url` = '{2}' where `url` = '{3}' ", banner.Title, banner.Desc, banner.Url, banner.Id);
+            affectedRows = ExecuteNonQuery(sql);
+        }
+        catch (Exception e)
+        {
+            affectedRows = 0;
+            throw e;
+        }
+        finally
+        {
+            CloseDatabase();
+        }
+        return affectedRows;
+    }
+
     public int DeleteBanner(BannerModel banner)
     {
         int affectedRows;
         try
         {
             OpenDatabase();
-            string sql = string.Format("DELETE FROM tbl_banners_index WHERE url = '{0}' ", banner.Url);
+            string sql = string.Format("DELETE FROM tbl_banners_index WHERE `url` = '{0}' ", banner.Url);
             affectedRows = ExecuteNonQuery(sql);
         }
         catch (Exception e)
@@ -90,7 +132,7 @@ public class BannerDAO : Connection
         try
         {
             OpenDatabase();
-            string sql = string.Format("DELETE FROM tbl_banners_plans WHERE url = '{0}' ", banner.Url);
+            string sql = string.Format("DELETE FROM tbl_banners_plans WHERE `url` = '{0}' ", banner.Url);
             affectedRows = ExecuteNonQuery(sql);
         }
         catch (Exception e)

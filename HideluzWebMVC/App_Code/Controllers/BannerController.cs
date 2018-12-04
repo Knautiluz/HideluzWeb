@@ -69,6 +69,48 @@ public class BannerController
         }
 
     }
+
+    public bool UpdatePlanBanner(string title, string desc, string url, string id)
+    {
+        BannerModel bannerModel = new BannerModel
+        {
+            Id = id,
+            Title = title,
+            Desc = desc,
+            Url = url
+        };
+        return (DataAccessObject.UpdatePlanBanner(bannerModel) > 0);
+    }
+
+    public bool DeleteBanner(string bannerUrl)
+    {
+        BannerModel bannerModel = new BannerModel
+        {
+            Url = bannerUrl
+        };
+        return (DataAccessObject.DeleteBanner(bannerModel) > 0);
+    }
+
+    public bool DeletePlanBanner(string bannerUrl)
+    {
+        BannerModel bannerModel = new BannerModel
+        {
+            Url = bannerUrl
+        };
+        return (DataAccessObject.DeletePlanBanner(bannerModel) > 0);
+    }
+
+    public bool UpdateBanner(string title, string desc, string url, string id)
+    {
+        BannerModel bannerModel = new BannerModel
+        {
+            Id = id,
+            Title = title,
+            Desc = desc,
+            Url = url
+        };
+        return (DataAccessObject.UpdateBanner(bannerModel) > 0);
+    }
     public List<BannerModel> SelectAllBanners()
     {
         List<object> banners = DataAccessObject.ReturnAllBanners();
