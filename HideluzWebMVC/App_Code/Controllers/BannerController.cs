@@ -15,6 +15,8 @@ public class BannerController
     private BannerModel Banner { get; set; }
     private BannerDAO DataAccessObject { get; set; }
 
+    private const string AlreadyExist = "Já existe um banner com a mesma imagem.";
+
     private const string InsertSuccess = "Banner cadastrado com sucesso!";
     private const string UpdateSuccess = "Banner atualizado com sucesso!";
     private const string DeleteSuccess = "Banner deletado com sucesso!";
@@ -228,21 +230,32 @@ public class BannerController
         {
             string fname = file.FileName;
 
-            if (UpdatePlanBanner(BannerTitle, BannerDesc, fname, BannerUrl))
+            if (BannerUrl != fname && DataAccessObject.SearchBanner(new BannerModel { Url = fname }) > 0)
             {
-                try
-                {
-                    file.SaveAs(page.Server.MapPath(Path.Combine("~/Content/Images/Planos/", fname)));
-                    return new ResponseModel(UpdateSuccess, true);
-                }
-                catch (Exception ex)
-                {
-                    return new ResponseModel(ex.Message, false);
-                }
+                return new ResponseModel(AlreadyExist, false);
             }
             else
             {
-                return new ResponseModel(UpdateFail, false);
+                if (UpdatePlanBanner(BannerTitle, BannerDesc, fname, BannerUrl))
+                {
+                    try
+                    {
+                        //apaga o banner antigo.
+                        var path = page.Server.MapPath("~/Content/Images/Planos/" + BannerUrl);
+                        File.Delete(path);
+                        //salva o novo banner.
+                        file.SaveAs(page.Server.MapPath(Path.Combine("~/Content/Images/Planos/", fname)));
+                        return new ResponseModel(UpdateSuccess, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        return new ResponseModel(ex.Message, false);
+                    }
+                }
+                else
+                {
+                    return new ResponseModel(UpdateFail, false);
+                }
             }
         }
         else
@@ -278,21 +291,33 @@ public class BannerController
         if (file != null && file.ContentLength > 0)
         {
             string fname = file.FileName;
-            if (UpdateBanner(BannerTitle, BannerDesc, fname, BannerUrl))
+
+            if (BannerUrl != fname && DataAccessObject.SearchBanner(new BannerModel {Url = fname }) > 0)
             {
-                try
-                {
-                    file.SaveAs(page.Server.MapPath(Path.Combine("~/Content/Images/", fname)));
-                    return new ResponseModel(UpdateSuccess, true);
-                }
-                catch (Exception ex)
-                {
-                    return new ResponseModel(ex.Message, false);
-                }
+                return new ResponseModel(AlreadyExist, false);
             }
             else
             {
-                return new ResponseModel(UpdateFail, false);
+                if (UpdateBanner(BannerTitle, BannerDesc, fname, BannerUrl))
+                {
+                    try
+                    {
+                        //apaga o banner antigo.
+                        var path = page.Server.MapPath("~/Content/Images/" + BannerUrl);
+                        File.Delete(path);
+                        //salva o novo banner.
+                        file.SaveAs(page.Server.MapPath(Path.Combine("~/Content/Images/", fname)));
+                        return new ResponseModel(UpdateSuccess, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        return new ResponseModel(ex.Message, false);
+                    }
+                }
+                else
+                {
+                    return new ResponseModel(UpdateFail, false);
+                }
             }
         }
         else

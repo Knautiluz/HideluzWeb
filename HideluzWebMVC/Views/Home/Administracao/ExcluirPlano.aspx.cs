@@ -32,7 +32,7 @@ public partial class Views_Home_Administracao_DeletarBanner : System.Web.UI.Page
                 }
                 else
                 {
-                    Response.Write(string.Format("<script>alert('{0}')</script>", result.Response));
+                    Response.Write(string.Format("<script>alert('{0}')</script>", result.ResponseText));
                 }
             }
         }
@@ -49,7 +49,7 @@ public partial class Views_Home_Administracao_DeletarBanner : System.Web.UI.Page
         StringBuilder stringBuilder = new StringBuilder();
         if (Banners.Count == 0)
         {
-            return "<h3 class='text-center alert-warning'>Não existem Banners cadastrados.</h3>";
+            return null;
         }
         else
         {

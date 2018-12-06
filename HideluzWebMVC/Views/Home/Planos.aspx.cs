@@ -26,7 +26,7 @@ public partial class Views_Home_Planos : System.Web.UI.Page
         StringBuilder stringBuilder = new StringBuilder();
         if (Banners.Count == 0)
         {
-            return "<h3 class='text-center alert-warning'>Não existem Banners cadastrados.</h3>";
+            return null;
         }
         else
         {

@@ -10,7 +10,7 @@ public partial class Views_Home_Administracao_ConsultarBanner : System.Web.UI.Pa
     private BannerController Controller { get; set; }
     private PageController PageController { get; set; }
     private List<BannerModel> Banners { get; set; }
-    public const string Url = "../../../Content/Images/";
+    private const string Url = "../../../Content/Images/";
     private const string RedirectUrl = "/Views/Home/Administracao.aspx";
 
     protected void Page_Load(object sender, EventArgs e)
@@ -34,11 +34,10 @@ public partial class Views_Home_Administracao_ConsultarBanner : System.Web.UI.Pa
         StringBuilder stringBuilder = new StringBuilder();
         if (Banners.Count == 0)
         {
-            return "<h3 class='text-center alert-warning'>Não existem banners cadastrados.</h3>";
+            return null;
         }
         else
         {
-
             stringBuilder.Append("<div class='carousel-inner'>");
             stringBuilder.Append("<ol class='carousel-indicators'>");
             //for que gera os indicators

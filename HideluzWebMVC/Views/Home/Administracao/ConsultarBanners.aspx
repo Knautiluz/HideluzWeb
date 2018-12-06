@@ -3,7 +3,7 @@
 <asp:Content ID="Content" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
     <div id="carousel-index" class="container-fluid">
         <div class="row">
-            <div class="col-md-4 col-lg-4 offset-md-4 offset-lg-4">
+            <div style="<%= BannerGenerator() != null ? "display:table;" : "display:none;" %>" class="col-md-4 col-lg-4 offset-md-4 offset-lg-4">
                 <h6 class="text-center mt-5">Aqui estão todos os banners!</h6>
                 <div id="carouselIndex" class="carousel slide mt-4" data-ride="carousel">
                     <%= BannerGenerator() %>
@@ -16,6 +16,9 @@
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
+            </div>
+            <div style="<%= BannerGenerator() == null ? "display:table;" : "display:none;" %>" class="col-md-4 col-lg-4 offset-md-4 offset-lg-4 mt-5">
+                <h3 class="alert-primary text-center border-radius-hard">No momento não existem banners cadastrados, cadastre um banner!</h3>
             </div>
         </div>
     </div>

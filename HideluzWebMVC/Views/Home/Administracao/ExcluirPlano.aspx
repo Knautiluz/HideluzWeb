@@ -11,7 +11,7 @@
     </script>
     <div id="carousel-index" class="container-fluid">
         <div class="row">
-            <div class="col-md-4 col-lg-4 offset-md-4 offset-lg-4">
+            <div style="<%= BannerGenerator() != null ? "display:table;" : "display:none;" %>" class="col-md-4 col-lg-4 offset-md-4 offset-lg-4">
                 <h3 class="text-center mt-5">Escolha o Banner de Plano que deseja deletar!</h3>
                 <div id="carouselIndex" class="carousel slide mt-4" data-ride="carousel">
                     <%= BannerGenerator() %>
@@ -25,11 +25,14 @@
                     </a>
                 </div>
             </div>
+            <div style="<%= BannerGenerator() == null ? "display:table;": "display:none;" %>" class="col-md-4 col-lg-4 offset-md-4 offset-lg-4 mt-5">
+                <h3 class="alert-primary text-center border-radius-hard">No momento não existem banners cadastrados, cadastre um banner!</h3>
+            </div>
         </div>
     </div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-6 col-lg-6 offset-md-3 offset-lg-3">
+            <div style="<%= BannerGenerator() != null ? "display:table;" : "display:none;" %>" class="col-md-6 col-lg-6 offset-md-3 offset-lg-3">
                 <form accept-charset="uft-8" method="post" enctype="multipart/form-data" target="_self">
                     <div class="row">
                         <div class="col-md-6 col-lg-6 offset-md-3 offset-lg-3 mt-3">
