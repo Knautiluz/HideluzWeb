@@ -18,7 +18,6 @@ public class AdminstracaoDAO : Connection
     }
     public List<object> VerifyLogin(UserModel login)
     {
-
         try
         {
             OpenDatabase();
@@ -26,40 +25,6 @@ public class AdminstracaoDAO : Connection
             return ExecuteQuery(sql);
         }
         catch (Exception e)
-        {
-            throw e;
-        }
-        finally
-        {
-            CloseDatabase();
-        }
-    }
-    public List<object> VerifyToken(UserModel login)
-    {
-        try
-        {
-            OpenDatabase();
-            string sql = string.Format("SELECT * FROM `tbl_users` WHERE `uid` = '{0}'", login.Uid);
-            return ExecuteQuery(sql);
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
-        finally
-        {
-            CloseDatabase();
-        }
-    }
-    public int UpdateToken(UserModel user)
-    {
-        try
-        {
-            OpenDatabase();
-            string sql = string.Format("UPDATE `tbl_users` set `uid` = '{0}' WHERE `usuario` = '{1}'", user.Uid, user.Username);
-            return ExecuteNonQuery(sql);
-        }
-        catch(Exception e)
         {
             throw e;
         }

@@ -2,60 +2,43 @@
 using HideluzWebMVC.Models;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 public partial class Views_Home_Administracao_DeletarBanner : System.Web.UI.Page
 {
     private BannerController Controller { get; set; }
+    private PageController PageController { get; set; }
     public List<BannerModel> Banners { get; set; }
-    public const string url = "../../../Content/Images/";
-    private string Cookie;
+    public const string Url = "../../../Content/Images/";
     private const string RedirectUrl = "/Views/Home/Administracao.aspx";
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        ValidarSessao();
-
-        Controller = new BannerController();
-        Banners = Controller.SelectAllBanners();
-
-        if (Page.Request.HttpMethod.Equals("POST"))
+        PageController = new PageController();
+        if(PageController.VerifyUserSession())
         {
+            Controller = new BannerController();
+            Banners = Controller.SelectAllBanners();
 
-            //instantiate index controoler
-            BannerController Controller = new BannerController();
-
-            var data = Request.Form;
-            string BannerUrl = data["BannerUrl"];
-
-            if (string.IsNullOrEmpty(BannerUrl))
+            if(PageController.VerifyRequestMethod(Request) == 1)
             {
-                Response.Write("<script> alert('Clique no arquivo que deseja deletar!') </script>");
-                return;
-            }
-            if (Controller.DeleteBanner(BannerUrl))
-            {
-                try
+                var result = Controller.DeleteBanner(Request, Page);
+                if (result.Response)
                 {
-                    var path = Server.MapPath("~/Content/Images/" + BannerUrl);
-                    File.Delete(path);
                     Response.Redirect(Request.RawUrl);
                 }
-                catch (Exception ex)
+                else
                 {
-                    string result = string.Format("<script> alert('{0}') </script>", ex);
-                    Response.Write(result);
+                    Response.Write(string.Format("<script>alert('{0}')</script>", result.ResponseText));
                 }
             }
-            else
-            {
-                Response.Write(string.Format("<script> alert('{0}') </script>", Controller.Error));
-            }
+
+        }
+        else
+        {
+            Response.Redirect(RedirectUrl);
+            Response.End();
         }
     }
 
@@ -97,7 +80,7 @@ public partial class Views_Home_Administracao_DeletarBanner : System.Web.UI.Page
                 {
                     stringBuilder.Append("<div class='carousel-item'>");
                 }
-                stringBuilder.Append(string.Format("<img id='carouselPictureThree' class='d-block w-100' src='{0}' alt='Third slide'>", url + Banners.ElementAt(i).Url));
+                stringBuilder.Append(string.Format("<img id='carouselPictureThree' class='d-block w-100' src='{0}' alt='Third slide'>", Url + Banners.ElementAt(i).Url));
                 stringBuilder.Append("<div class='carousel-caption d-none d-md-block bg-menu-trans-dark border-radius-medium'>");
                 stringBuilder.Append(string.Format("<h5>{0}</h5>", Banners.ElementAt(i).Title));
                 stringBuilder.Append(string.Format("<p>{0}</p>", Banners.ElementAt(i).Desc));
@@ -106,32 +89,6 @@ public partial class Views_Home_Administracao_DeletarBanner : System.Web.UI.Page
             }
             stringBuilder.Append("</div>");
             return stringBuilder.ToString();
-        }
-    }
-
-    protected void ValidarSessao()
-    {
-        if (Request.Cookies["UID"] != null)
-        {
-            Cookie = Request.Cookies["UID"].Value;
-        }
-        AdministracaoController AdminController;
-
-        if (!(string.IsNullOrEmpty(Cookie)))
-        {
-            AdminController = new AdministracaoController();
-            var result = AdminController.VerifyToken(Cookie);
-            if (!(result.Id > 0))
-            {
-                Response.Redirect(RedirectUrl);
-                Response.End();
-            }
-
-        }
-        else
-        {
-            Response.Redirect(RedirectUrl);
-            Response.End();
         }
     }
 }

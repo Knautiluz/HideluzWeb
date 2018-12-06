@@ -1,8 +1,10 @@
 ﻿using HideluzWebMVC.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.UI;
 
 /// <summary>
 /// Descrição resumida de BannerController
@@ -13,6 +15,17 @@ public class BannerController
     private BannerModel Banner { get; set; }
     private BannerDAO DataAccessObject { get; set; }
 
+    private const string InsertSuccess = "Banner cadastrado com sucesso!";
+    private const string UpdateSuccess = "Banner atualizado com sucesso!";
+    private const string DeleteSuccess = "Banner deletado com sucesso!";
+
+    private const string InsertFail = "Não foi possivel cadastrar o banner, tente novamente!";
+    private const string UpdateFail = "Não foi possivel atualizar o banner, tente novamente!";
+    private const string DeleteFail = "Não foi possivel deletar o banner, tente novamente!";
+
+    private const string BannerRequiredError = "Os dados do banner devem ser preenchidos.";
+    private const string ImageError = "A imagem deve estar em um formato válido.";
+
     public BannerController()
     {
         Banner = new BannerModel();
@@ -20,7 +33,7 @@ public class BannerController
     }
 
     #region create
-    public bool NewBanner(string title, string desc, string url)
+    private bool NewBanner(string title, string desc, string url)
     {
         Banner.Title = title;
         Banner.Desc = desc;
@@ -45,7 +58,44 @@ public class BannerController
         }
 
     }
-    public bool NewPlanBanner(string title, string desc, string url)
+
+    public ResponseModel NewBanner(HttpRequest request, Page page)
+    {
+        var data = request.Form;
+        string BannerTitle = data["BannerTitle"];
+        string BannerDesc = data["BannerDesc"];
+        if (string.IsNullOrEmpty(BannerTitle) || string.IsNullOrEmpty(BannerDesc))
+        {
+            return new ResponseModel(BannerRequiredError, false);
+        }
+        HttpPostedFile file = request.Files["BannerImg"];
+        if (file != null && file.ContentLength > 0)
+        {
+            string fname = file.FileName;
+            if (NewBanner(BannerTitle, BannerDesc, fname))
+            {
+                try
+                {
+                    file.SaveAs(page.Server.MapPath(Path.Combine("~/Content/Images/", fname)));
+                    return new ResponseModel(InsertSuccess, true);
+                }
+                catch (Exception ex)
+                {
+                    return new ResponseModel(ex.Message, false);
+                }
+            }
+            else
+            {
+                return new ResponseModel(InsertFail, false);
+            }
+        }
+        else
+        {
+            return new ResponseModel(ImageError, false);
+        }
+    }
+
+    private bool NewPlanBanner(string title, string desc, string url)
     {
         Banner.Title = title;
         Banner.Desc = desc;
@@ -69,6 +119,42 @@ public class BannerController
             return false;
         }
 
+    }
+
+    public ResponseModel NewPlanBanner(HttpRequest request, Page page)
+    {
+        var data = request.Form;
+        string BannerTitle = data["BannerTitle"];
+        string BannerDesc = data["BannerDesc"];
+        if (string.IsNullOrEmpty(BannerTitle) || string.IsNullOrEmpty(BannerDesc))
+        {
+            return new ResponseModel(BannerRequiredError, false);
+        }
+        HttpPostedFile file = request.Files["BannerImg"];
+        if (file != null && file.ContentLength > 0)
+        {
+            string fname = file.FileName;
+            if (NewPlanBanner(BannerTitle, BannerDesc, fname))
+            {
+                try
+                {
+                    file.SaveAs(page.Server.MapPath(Path.Combine("~/Content/Images/Planos/", fname)));
+                    return new ResponseModel(InsertSuccess, true);
+                }
+                catch (Exception ex)
+                {
+                    return new ResponseModel(ex.Message, false);
+                }
+            }
+            else
+            {
+                return new ResponseModel(InsertFail, false);
+            }
+        }
+        else
+        {
+            return new ResponseModel(ImageError, false);
+        }
     }
     #endregion
 
@@ -114,7 +200,7 @@ public class BannerController
     #endregion
 
     #region update
-    public bool UpdatePlanBanner(string title, string desc, string url, string id)
+    private bool UpdatePlanBanner(string title, string desc, string url, string id)
     {
         BannerModel bannerModel = new BannerModel
         {
@@ -125,7 +211,47 @@ public class BannerController
         };
         return (DataAccessObject.UpdatePlanBanner(bannerModel) > 0);
     }
-    public bool UpdateBanner(string title, string desc, string url, string id)
+
+    public ResponseModel UpdatePlanBanner(HttpRequest request, Page page)
+    {
+        var data = request.Form;
+        string BannerTitle = data["BannerTitle"];
+        string BannerDesc = data["BannerDesc"];
+        string BannerUrl = data["BannerUrl"];
+
+        if (string.IsNullOrEmpty(BannerTitle) || string.IsNullOrEmpty(BannerDesc) || string.IsNullOrEmpty(BannerUrl))
+        {
+            return new ResponseModel(BannerRequiredError, false);
+        }
+        HttpPostedFile file = request.Files["BannerImg"];
+        if (file != null && file.ContentLength > 0)
+        {
+            string fname = file.FileName;
+
+            if (UpdatePlanBanner(BannerTitle, BannerDesc, fname, BannerUrl))
+            {
+                try
+                {
+                    file.SaveAs(page.Server.MapPath(Path.Combine("~/Content/Images/Planos/", fname)));
+                    return new ResponseModel(UpdateSuccess, true);
+                }
+                catch (Exception ex)
+                {
+                    return new ResponseModel(ex.Message, false);
+                }
+            }
+            else
+            {
+                return new ResponseModel(UpdateFail, false);
+            }
+        }
+        else
+        {
+            return new ResponseModel(ImageError, false);
+        }
+    }
+
+    private bool UpdateBanner(string title, string desc, string url, string id)
     {
         BannerModel bannerModel = new BannerModel
         {
@@ -136,10 +262,48 @@ public class BannerController
         };
         return (DataAccessObject.UpdateBanner(bannerModel) > 0);
     }
+
+    public ResponseModel UpdateBanner(HttpRequest request, Page page)
+    {
+        var data = request.Form;
+        string BannerTitle = data["BannerTitle"];
+        string BannerDesc = data["BannerDesc"];
+        string BannerUrl = data["BannerUrl"];
+
+        if (string.IsNullOrEmpty(BannerTitle) || string.IsNullOrEmpty(BannerDesc) || string.IsNullOrEmpty(BannerUrl))
+        {
+            return new ResponseModel(BannerRequiredError, false);
+        }
+        HttpPostedFile file = request.Files["BannerImg"];
+        if (file != null && file.ContentLength > 0)
+        {
+            string fname = file.FileName;
+            if (UpdateBanner(BannerTitle, BannerDesc, fname, BannerUrl))
+            {
+                try
+                {
+                    file.SaveAs(page.Server.MapPath(Path.Combine("~/Content/Images/", fname)));
+                    return new ResponseModel(UpdateSuccess, true);
+                }
+                catch (Exception ex)
+                {
+                    return new ResponseModel(ex.Message, false);
+                }
+            }
+            else
+            {
+                return new ResponseModel(UpdateFail, false);
+            }
+        }
+        else
+        {
+            return new ResponseModel(ImageError, false);
+        }
+    }
     #endregion
 
     #region delete
-    public bool DeleteBanner(string bannerUrl)
+    private bool DeleteBanner(string bannerUrl)
     {
         BannerModel bannerModel = new BannerModel
         {
@@ -147,7 +311,37 @@ public class BannerController
         };
         return (DataAccessObject.DeleteBanner(bannerModel) > 0);
     }
-    public bool DeletePlanBanner(string bannerUrl)
+
+    public ResponseModel DeleteBanner(HttpRequest request, Page page)
+    {
+
+        var data = request.Form;
+        string BannerUrl = data["BannerUrl"];
+
+        if (string.IsNullOrEmpty(BannerUrl))
+        {
+            return new ResponseModel(BannerRequiredError, false);
+        }
+        if (DeleteBanner(BannerUrl))
+        {
+            try
+            {
+                var path = page.Server.MapPath("~/Content/Images/" + BannerUrl);
+                File.Delete(path);
+                return new ResponseModel(DeleteSuccess, true);
+            }
+            catch (Exception ex)
+            {
+                return new ResponseModel(ex.Message, false);
+            }
+        }
+        else
+        {
+            return new ResponseModel(DeleteFail, false);
+        }
+    }
+
+    private bool DeletePlanBanner(string bannerUrl)
     {
         BannerModel bannerModel = new BannerModel
         {
@@ -155,7 +349,36 @@ public class BannerController
         };
         return (DataAccessObject.DeletePlanBanner(bannerModel) > 0);
     }
+
+    public ResponseModel DeletePlanBanner(HttpRequest request, Page page)
+    {
+
+        var data = request.Form;
+        string BannerUrl = data["BannerUrl"];
+
+        if (string.IsNullOrEmpty(BannerUrl))
+        {
+            return new ResponseModel(BannerRequiredError, false);
+        }
+        if (DeletePlanBanner(BannerUrl))
+        {
+            try
+            {
+                var path = page.Server.MapPath("~/Content/Images/Planos/" + BannerUrl);
+                File.Delete(path);
+                return new ResponseModel(DeleteSuccess, true);
+            }
+            catch (Exception ex)
+            {
+                return new ResponseModel(ex.Message, false);
+            }
+        }
+        else
+        {
+            return new ResponseModel(DeleteFail, false);
+        }
+    }
     #endregion
 
-    
+
 }

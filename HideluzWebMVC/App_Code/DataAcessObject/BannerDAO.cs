@@ -16,6 +16,7 @@ public class BannerDAO : Connection
         // TODO: Adicionar lógica do construtor aqui
         //
     }
+
     public int InsertBanner(BannerModel banner)
     {
         int affectedRows;

@@ -1,82 +1,31 @@
 ﻿using HideluzWebMVC.Controllers;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 public partial class Views_Home_Administracao_AdicionarPlanos : System.Web.UI.Page
 {
+    private PageController PageController { get; set; }
+    private BannerController BannerController { get; set; }
     private const string RedirectUrl = "/Views/Home/Administracao.aspx";
-    private string Cookie;
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        ValidarSessao();
-
-        if (Page.Request.HttpMethod.Equals("POST"))
+        PageController = new PageController();
+        if(PageController.VerifyUserSession())
         {
-
-            //instantiate index controoler
-            BannerController Controller = new BannerController();
-
-            var data = Request.Form;
-            string BannerTitle = data["BannerTitle"];
-            string BannerDesc = data["BannerDesc"];
-            if (string.IsNullOrEmpty(BannerTitle) || string.IsNullOrEmpty(BannerDesc))
+            if(PageController.VerifyRequestMethod(Request) == 1)
             {
-                Response.Write("<script> alert('Todos os campos são obrigatórios!') </script>");
-                return;
-            }
-            HttpPostedFile file = Request.Files["BannerImg"];
-            if (file != null && file.ContentLength > 0)
-            {
-                string fname = file.FileName;
-                if (Controller.NewPlanBanner(BannerTitle, BannerDesc, fname))
+                BannerController = new BannerController();
+                var result = BannerController.NewPlanBanner(Request, Page);
+
+                if (result.Response)
                 {
-                    try
-                    {
-                        file.SaveAs(Server.MapPath(Path.Combine("~/Content/Images/Planos", fname)));
-                        Response.Write("<script> alert('Banner cadastrado com sucesso!') </script>");
-                    }
-                    catch (Exception ex)
-                    {
-                        string result = string.Format("<script> alert('{0}') </script>", ex);
-                        Response.Write(result);
-                    }
+                    Response.Write(string.Format("<script>alert('{0}')</script>", result.ResponseText));
                 }
                 else
                 {
-                    Response.Write(string.Format("<script> alert('{0}') </script>", Controller.Error));
+                    Response.Write(string.Format("<script>alert('{0}')</script>", result.ResponseText));
                 }
             }
-            else
-            {
-                Response.Write("<script> alert('Você enviou um arquivo inválido de imagem!') </script>");
-            }
-        }
-    }
-
-    protected void ValidarSessao()
-    {
-        if (Request.Cookies["UID"] != null)
-        {
-            Cookie = Request.Cookies["UID"].Value;
-        }
-        AdministracaoController AdminController;
-
-        if (!(string.IsNullOrEmpty(Cookie)))
-        {
-            AdminController = new AdministracaoController();
-            var result = AdminController.VerifyToken(Cookie);
-            if (!(result.Id > 0))
-            {
-                Response.Redirect(RedirectUrl);
-                Response.End();
-            }
-
         }
         else
         {

@@ -1,5 +1,4 @@
 ﻿using HideluzWebMVC.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,62 +8,44 @@ namespace HideluzWebMVC.Controllers
     public class AdministracaoController
     {
         private AdminstracaoDAO Administrador { get; set; }
-        private UserModel Login {get; set;}
-
+        private UserModel UserModel { get; set; }
         public AdministracaoController()
         {
             Administrador = new AdminstracaoDAO();
-            Login = new UserModel();
+            UserModel = new UserModel();
         }
 
-        public UserModel VerifyUser(string user, string pass)
+        public UserModel VerifyUser(HttpRequest request)
         {
-            Login.Username = user;
-            Login.Password = pass;
+            var data = request.Form;
 
-            List<object> User = Administrador.VerifyLogin(Login);
+            string user = data["Username"];
+            string pass = data["Password"];
 
-            if(User.Count > 0)
+            if(string.IsNullOrEmpty(user) || string.IsNullOrEmpty(pass))
             {
-                List<string> Results = (List<string>)User.ElementAt(0);
-                Login.Id = int.Parse(Results.ElementAt(0));
-                Login.Name = Results.ElementAt(1);
-                Login.Username = Results.ElementAt(2);
-                Login.Password = Results.ElementAt(3);
-                Login.Uid = Results.ElementAt(4);
-                return Login;
+                return null;
             }
             else
             {
-                return Login;
-            }
-        }
+                UserModel.Username = user;
+                UserModel.Password = pass;
 
-        public UserModel VerifyToken(string token)
-        {
-            Login.Uid = token;
-            List<object> Token = Administrador.VerifyToken(Login);
-            if (Token.Count > 0)
-            {
-                List<string> Results = (List<string>)Token.ElementAt(0);
-                Login.Id = int.Parse(Results.ElementAt(0));
-                Login.Name = Results.ElementAt(1);
-                Login.Username = Results.ElementAt(2);
-                Login.Password = Results.ElementAt(3);
-                Login.Uid = Results.ElementAt(4);
-                return Login;
-            }
-            else
-            {
-                return Login;
-            }
-        }
+                List<object> User = Administrador.VerifyLogin(UserModel);
 
-        public int UpdateToken(string token, string username)
-        {
-            Login.Uid = token;
-            Login.Username = username;
-            return Administrador.UpdateToken(Login);
+                if (User.Count > 0)
+                {
+                    List<string> Results = (List<string>)User.ElementAt(0);
+                    UserModel.Username = Results.ElementAt(2);
+                    UserModel.Uid = Results.ElementAt(4);
+
+                    return UserModel;
+                }
+                else
+                {
+                    return null;
+                }
+            }
         }
     }
 }
