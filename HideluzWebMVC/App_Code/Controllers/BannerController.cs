@@ -71,24 +71,32 @@ public class BannerController
             return new ResponseModel(BannerRequiredError, false);
         }
         HttpPostedFile file = request.Files["BannerImg"];
-        if (file != null && file.ContentLength > 0)
+
+        if (file != null && file.ContentLength > 0 && file.ContentType.Equals("image/jpeg") || file.ContentType.Equals("image/png"))
         {
             string fname = file.FileName;
-            if (NewBanner(BannerTitle, BannerDesc, fname))
+            if (DataAccessObject.SearchBanner(new BannerModel { Url = fname }) > 0)
             {
-                try
-                {
-                    file.SaveAs(page.Server.MapPath(Path.Combine("~/Content/Images/", fname)));
-                    return new ResponseModel(InsertSuccess, true);
-                }
-                catch (Exception ex)
-                {
-                    return new ResponseModel(ex.Message, false);
-                }
+                return new ResponseModel(AlreadyExist, false);
             }
             else
             {
-                return new ResponseModel(InsertFail, false);
+                if (NewBanner(BannerTitle, BannerDesc, fname))
+                {
+                    try
+                    {
+                        file.SaveAs(page.Server.MapPath(Path.Combine("~/Content/Images/", fname)));
+                        return new ResponseModel(InsertSuccess, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        return new ResponseModel(ex.Message, false);
+                    }
+                }
+                else
+                {
+                    return new ResponseModel(InsertFail, false);
+                }
             }
         }
         else
@@ -133,24 +141,31 @@ public class BannerController
             return new ResponseModel(BannerRequiredError, false);
         }
         HttpPostedFile file = request.Files["BannerImg"];
-        if (file != null && file.ContentLength > 0)
+        if (file != null && file.ContentLength > 0 && file.ContentType.Equals("image/jpeg") || file.ContentType.Equals("image/png"))
         {
             string fname = file.FileName;
-            if (NewPlanBanner(BannerTitle, BannerDesc, fname))
+            if (DataAccessObject.SearchPlanBanner(new BannerModel { Url = fname }) > 0)
             {
-                try
-                {
-                    file.SaveAs(page.Server.MapPath(Path.Combine("~/Content/Images/Planos/", fname)));
-                    return new ResponseModel(InsertSuccess, true);
-                }
-                catch (Exception ex)
-                {
-                    return new ResponseModel(ex.Message, false);
-                }
+                return new ResponseModel(AlreadyExist, false);
             }
             else
             {
-                return new ResponseModel(InsertFail, false);
+                if (NewPlanBanner(BannerTitle, BannerDesc, fname))
+                {
+                    try
+                    {
+                        file.SaveAs(page.Server.MapPath(Path.Combine("~/Content/Images/Planos/", fname)));
+                        return new ResponseModel(InsertSuccess, true);
+                    }
+                    catch (Exception ex)
+                    {
+                        return new ResponseModel(ex.Message, false);
+                    }
+                }
+                else
+                {
+                    return new ResponseModel(InsertFail, false);
+                }
             }
         }
         else
@@ -226,11 +241,11 @@ public class BannerController
             return new ResponseModel(BannerRequiredError, false);
         }
         HttpPostedFile file = request.Files["BannerImg"];
-        if (file != null && file.ContentLength > 0)
+        if (file != null && file.ContentLength > 0 && file.ContentType.Equals("image/jpeg") || file.ContentType.Equals("image/png"))
         {
             string fname = file.FileName;
 
-            if (BannerUrl != fname && DataAccessObject.SearchBanner(new BannerModel { Url = fname }) > 0)
+            if (BannerUrl != fname && DataAccessObject.SearchPlanBanner(new BannerModel { Url = fname }) > 0)
             {
                 return new ResponseModel(AlreadyExist, false);
             }
@@ -288,7 +303,7 @@ public class BannerController
             return new ResponseModel(BannerRequiredError, false);
         }
         HttpPostedFile file = request.Files["BannerImg"];
-        if (file != null && file.ContentLength > 0)
+        if (file != null && file.ContentLength > 0 && file.ContentType.Equals("image/jpeg") || file.ContentType.Equals("image/png"))
         {
             string fname = file.FileName;
 

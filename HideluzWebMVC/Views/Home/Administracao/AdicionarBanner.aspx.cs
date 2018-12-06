@@ -25,7 +25,7 @@ public partial class Views_Home_Cadastro : System.Web.UI.Page
                 }
                 else
                 {
-                    Response.Write(string.Format("<script>alert('{0}')", result.ResponseText));
+                    Response.Write(string.Format("<script>alert('{0}')</script>", result.ResponseText));
                 }
             }
         }
