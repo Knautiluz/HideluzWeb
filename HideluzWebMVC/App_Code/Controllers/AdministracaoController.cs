@@ -1,4 +1,5 @@
-﻿using HideluzWebMVC.Models;
+﻿using HideluzWebMVC.DAO;
+using HideluzWebMVC.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
