@@ -1,14 +1,12 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 /// <summary>
 /// Descrição resumida de Connection
 /// </summary>
-namespace HideluzWebMVC.DAO {
-
+namespace HideluzWebMVC.DAO
+{
     public class Connection
     {
         protected MySqlConnection DataConnection { get; set; }
