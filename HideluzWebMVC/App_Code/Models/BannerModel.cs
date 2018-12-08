@@ -13,9 +13,7 @@ namespace HideluzWebMVC.Models
 
         public BannerModel()
         {
-            //
-            // TODO: Adicionar lógica do construtor aqui
-            //
+
         }
     }
 }

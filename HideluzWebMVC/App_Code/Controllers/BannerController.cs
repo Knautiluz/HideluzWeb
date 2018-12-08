@@ -14,7 +14,6 @@ namespace HideluzWebMVC.Controllers
 {
     public class BannerController
     {
-        public string Error { get; set; }
         private BannerModel Banner { get; set; }
         private BannerDAO DataAccessObject { get; set; }
 
@@ -52,13 +51,11 @@ namespace HideluzWebMVC.Controllers
                 }
                 else
                 {
-                    Error = "O Banner não foi cadastrado.";
                     return false;
                 }
             }
             else
             {
-                Error = "Já existe um banner com o mesmo nome de arquivo";
                 return false;
             }
 
@@ -122,13 +119,11 @@ namespace HideluzWebMVC.Controllers
                 }
                 else
                 {
-                    Error = "O Banner não foi cadastrado.";
                     return false;
                 }
             }
             else
             {
-                Error = "Já existe um banner com o mesmo nome de arquivo";
                 return false;
             }
 
